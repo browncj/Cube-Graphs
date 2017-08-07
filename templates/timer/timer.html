@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block styles %}
+        <link rel="stylesheet" type="text/css" href="{% static 'timer/styles.css' %}"/>
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <p id="stopwatch"><span id="minutes"></span>:<span id="seconds"></span>:<span id="centiseconds"></span></p>
+        <button class="btn" id="start">Start</button>
+        <button class="btn" id="stop">Stop</button>
+        <button class="btn" id="reset">Reset</button>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{% static 'timer/scripts.js' %}"></script>
+{% endblock %}

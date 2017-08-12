@@ -28,18 +28,22 @@ $(document).ready(function(){
     setTime(count);
 
     $('.btn#start').click(function(){
-        clock = setInterval(function(){
-            count = count + 1;
-            setTime(count);
-        }, 10);
+        if (clock == null){
+            clock = setInterval(function(){
+                count = count + 1;
+                setTime(count);
+                }, 10);
+        }
     });
 
     $('.btn#stop').click(function() {
         clearInterval(clock);
+        clock = null;
     });
 
     $('.btn#reset').click(function(){
         clearInterval(clock);
+        clock = null;
         count = 0;
         setTime(count);
     });

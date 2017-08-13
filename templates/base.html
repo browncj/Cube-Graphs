@@ -23,13 +23,18 @@
                 <ul class="nav navbar-nav">
                     <li id="home-page"><a href="/">Home</a></li>
                     <li id="timer-page"><a href="/timer">Timer</a></li>
-                    <li id="stats-page"><a href="/stats">Stats</a></li>
+                    <li id="profile-page"><a href="/profile">Profile</a></li>
                     <li id="community-page"><a href="/community">Community</a></li>
                     <li id="about-page"><a href="/about">About</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a>Log in</a></li>
-                    <li><a>Register</a></li>
+                    {% if user and user.is_authenticated %}
+                        <li><a href="/profile"><b>{{ user.username }}</b></a></li>
+                        <li id="logout"><a href="/logout">Log out</a></li>
+                    {% else %}
+                        <li id="login-page"><a href="/login">Log in</a></li>
+                        <li id="signup-page"><a href="/signup">Register</a></li>
+                    {% endif %}
                 </ul>
             </div>
         </nav>

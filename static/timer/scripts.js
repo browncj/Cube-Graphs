@@ -23,28 +23,53 @@ function setTime(total_centiseconds){
     $('#centiseconds').text(centiseconds);
 }
 
+function startTimer(){
+    if (clock == null){
+        clock = setInterval(function(){
+            count = count + 1;
+            setTime(count);
+        }, 10);
+    }
+}
+
+function stopTimer(){
+    clearInterval(clock);
+    clock = null;
+}
+
 $(document).ready(function(){
     $('#timer-page').toggleClass('active');
     setTime(count);
 
     $('.btn#start').click(function(){
-        if (clock == null){
-            clock = setInterval(function(){
-                count = count + 1;
-                setTime(count);
-                }, 10);
-        }
+        startTimer();
     });
 
     $('.btn#stop').click(function() {
-        clearInterval(clock);
-        clock = null;
+        stopTimer();
     });
 
     $('.btn#reset').click(function(){
-        clearInterval(clock);
-        clock = null;
+        stopTimer();
+
         count = 0;
         setTime(count);
+    });
+
+    $(window).keypress(function(e) {
+        if (e.which === 32){
+            // Space bar
+            if (clock == null){
+                startTimer();
+            } else {
+                stopTimer();
+            }
+        } else if (e.which === 13) {
+            // Enter key
+            // TODO: Submit time
+            stopTimer();
+            count = 0;
+            setTime(count);
+        }
     });
 });

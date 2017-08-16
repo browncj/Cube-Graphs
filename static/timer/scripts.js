@@ -38,7 +38,7 @@ function stopTimer(){
 }
 
 $(document).ready(function(){
-    $('#timer-page').toggleClass('active');
+    $('#timer-page').addClass('active');
     setTime(count);
 
     $('.btn#start').click(function(){

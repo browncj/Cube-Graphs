@@ -1,3 +1,3 @@
 $(document).ready(function(){
-    $('#signup-page').toggleClass('active');
+    $('#signup-page').addClass('active');
 })

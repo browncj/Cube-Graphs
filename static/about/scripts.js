@@ -1,3 +1,3 @@
 $(document).ready(function(){
-    $('#about-page').toggleClass('active');
+    $('#about-page').addClass('active');
 });

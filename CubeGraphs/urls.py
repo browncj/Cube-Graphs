@@ -23,6 +23,7 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', top_views.base, name='base'),
     url(r'^about/', include('about.urls')),
+    url(r'^profile/', include('userProfile.urls')),
     url(r'^timer/', include('timer.urls')),
     url(r'^home/', include('home.urls')),
 

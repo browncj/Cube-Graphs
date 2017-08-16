@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block styles %}
+{% endblock %}
+
+{% block content %}
+    <p>Hello, {{ user.username }}</p>
+
+    <button type="button" class="btn btn-danger">Reset password</button>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{% static 'userProfile/scripts.js' %}"></script>
+{% endblock %}

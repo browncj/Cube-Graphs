@@ -30,4 +30,5 @@ urlpatterns = [
     url(r'^login/', auth_views.login, name='login'),
     url(r'^logout/', auth_views.logout, {'next_page': '/'}, name='logout'),
     url(r'^signup/', top_views.signup, name='signup'),
+    url(r'^changepass/', top_views.change_pass, name='change_pass')
 ]

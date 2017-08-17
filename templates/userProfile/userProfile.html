@@ -6,8 +6,18 @@
 
 {% block content %}
     <p>Hello, {{ user.username }}</p>
+    <p>User since {{ user.date_joined }}</p>
 
-    <button type="button" class="btn btn-danger">Reset password</button>
+    {% if user.email %}
+        <p>Email: {{ user.email }}</p>
+        <a href="#" class="btn btn-default" role="button">Update email</a>
+    {% else %}
+        <p><b>You have not provided an email address.</b> You will be unable to recover your account
+        if you forget your password.</p>
+        <a href="#" class="btn btn-default">Add email</a>
+    {% endif %}
+
+    <a href="/changepass" class="btn btn-danger">Update password</a>
 {% endblock %}
 
 {% block scripts %}

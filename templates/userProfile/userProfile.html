@@ -10,11 +10,11 @@
 
     {% if user.email %}
         <p>Email: {{ user.email }}</p>
-        <a href="#" class="btn btn-default" role="button">Update email</a>
+        <a href="update_mail" class="btn btn-default" role="button">Update email</a>
     {% else %}
-        <p><b>You have not provided an email address.</b> You will be unable to recover your account
-        if you forget your password.</p>
-        <a href="#" class="btn btn-default">Add email</a>
+{#        <p><b>You have not provided an email address.</b> You will be unable to recover your account#}
+{#        if you forget your password.</p>#}
+        <a href="update_mail" class="btn btn-default">Add email</a>
     {% endif %}
 
     <a href="/changepass" class="btn btn-danger">Update password</a>

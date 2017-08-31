@@ -1,5 +1,9 @@
 from django.shortcuts import render
 
+from home.models import Post
+
 
 def index(request):
-    return render(request, 'home/home.html', {})
+    posts = Post.objects.order_by('-created_date')
+    context = {'posts': posts}
+    return render(request, 'home/home.html', context)

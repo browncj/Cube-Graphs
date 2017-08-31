@@ -1,3 +1,8 @@
 from django.db import models
+from django.utils import timezone
 
-# Create your models here.
+
+class Feedback(models.Model):
+    response_email = models.EmailField()
+    text = models.TextField()
+    date = models.DateTimeField(default=timezone.now)

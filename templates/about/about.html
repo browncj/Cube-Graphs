@@ -5,8 +5,34 @@
     <div class="page-header">
         <h1>About</h1>
     </div>
-    <p>Conveniently save your records for solving your puzzles.
-    Save your times, access them anywhere, and keep track of your progress over time.</p>
+
+    {% if message %}
+      {{ message }}
+    {% else %}
+      <p>Conveniently save your records for solving your puzzles.
+        Save your times, access them anywhere, and keep track of your progress over time.</p>
+    {% endif %}
+
+    {% if form %}
+      <br>
+      <div id="feedback">
+        <h3>Feedback</h3>
+        <form action="/about/" method="post">
+          {% csrf_token %}
+            {% for field in form %}
+              <div class="row">
+                <div class="col-md-4">{{ field.label }}</div>
+                <div class="col-md-8">{{ field }}</div>
+              </div>
+            {% endfor %}
+            <div class="row">
+              <div class="col-lg-12">
+                <input type="submit" value="submit"/>
+              </div>
+            </div>
+        </form>
+      </div>
+    {% endif %}
 {% endblock %}
 
 {% block scripts %}

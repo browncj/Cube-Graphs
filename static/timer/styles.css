@@ -1,3 +1,19 @@
+#stop-container {
+  border-style: solid;
+  border-color: lightgrey;
+  border-radius: 20px;
+  border-width: 2px;
+}
+
 #stopwatch {
-    font-size: 50pt;
+    font-size: 80pt;
+    opacity: 0.98;
+    text-align: center;
+}
+
+.timer-control {
+}
+
+.scramble {
+  font-size: 20pt;
 }

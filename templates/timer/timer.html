@@ -6,11 +6,35 @@
 {% endblock %}
 
 {% block content %}
+    <div class="page-header">
+        <h1>Track times</h1>
+    </div>
+
     <div class="container">
-        <p id="stopwatch"><span id="minutes"></span>:<span id="seconds"></span>:<span id="centiseconds"></span></p>
-        <button class="btn" id="start">Start</button>
-        <button class="btn" id="stop">Stop</button>
-        <button class="btn" id="reset">Reset</button>
+
+      <div class="row">
+        <div id="stop-container" class="col-md-12">
+          <p id="stopwatch"><span id="minutes"></span>:<span id="seconds"></span>:<span id="centiseconds"></span></p>
+          <p class="scramble text-center">
+            U D L D U D D D' U D L D U D D D' U D L D U D D D'
+          </p>
+        </div>
+      </div>
+
+      <br>
+
+      <div class="row">
+        <div class="col-md-4 text-center">
+          <button class="btn btn-default btn-lg btn-block timer-control" id="start">Start</button>
+        </div>
+        <div class="col-md-4 text-center">
+          <button class="btn btn-default btn-lg btn-block timer-control" id="stop">Stop</button>
+        </div>
+        <div class="col-lg-4 text-center">
+          <button class="btn btn-default btn-lg btn-block timer-control" id="reset">Reset</button>
+        </div>
+      </div>
+
     </div>
 {% endblock %}
 

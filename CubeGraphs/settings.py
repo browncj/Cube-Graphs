@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'home.apps.CubegraphsConfig',
     'about.apps.AboutConfig',
+    'timer.apps.TimerConfig',
 ]
 
 MIDDLEWARE_CLASSES = [

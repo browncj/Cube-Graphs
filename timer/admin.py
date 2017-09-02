@@ -1,3 +1,6 @@
 from django.contrib import admin
 
-# Register your models here.
+from timer.models import Puzzle, Solve
+
+admin.site.register(Puzzle)
+admin.site.register(Solve)

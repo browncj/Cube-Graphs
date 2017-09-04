@@ -1,5 +1,30 @@
+class Solve {
+  constructor(centiseconds){
+    var d = new Date();
+    this.date = d.getTime(); // unix timestamp
+    this.centiseconds = centiseconds;
+  }
+}
+
 var clock = null;
 var count = 0;
+times = [];
+
+function ajax_prep() {
+  var csrftoken = $('[name=csrfmiddlewaretoken]').val();
+
+  function csrfSafeMethods(method) {
+    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+  }
+
+  $.ajaxSetup({
+    beforeSend: function(xhr, settings) {
+      if (!csrfSafeMethods(settings.type) && !this.crossDomain) {
+        xhr.setRequestHeader("X-CSRFToken", csrftoken);
+      }
+    }
+  });
+}
 
 function setTime(total_centiseconds){
     var centiseconds = total_centiseconds % 100;
@@ -40,36 +65,55 @@ function stopTimer(){
 $(document).ready(function(){
     $('#timer-page').addClass('active');
     setTime(count);
+    ajax_prep();
 
-    $('.btn#start').click(function(){
+    $('.btn#main').on('click', function(){
+      if (clock == null) {
         startTimer();
-    });
-
-    $('.btn#stop').click(function() {
+        $(this).removeClass('btn-primary');
+        $(this).addClass('btn-success');
+        $(this).text('Done');
+      } else {
         stopTimer();
-    });
-
-    $('.btn#reset').click(function(){
-        stopTimer();
+        var solve = new Solve(count);
+        times.push(solve);
+        console.log(times);
 
         count = 0;
         setTime(count);
+        $(this).removeClass('btn-success');
+        $(this).addClass('btn-primary');
+        $(this).text('Start');
+      }
+
+      $(this).blur();
     });
 
     $(window).keypress(function(e) {
-        if (e.which === 32){
-            // Space bar
-            if (clock == null){
-                startTimer();
-            } else {
-                stopTimer();
-            }
-        } else if (e.which === 13) {
-            // Enter key
-            // TODO: Submit time
-            stopTimer();
-            count = 0;
-            setTime(count);
+        if (e.which === 32){  // space bar
+          e.preventDefault();  // prevent scrolling
+          $('.btn#main').click();
         }
     });
+
+    $('.btn#save').on('click', function(){
+      if (!$(this).hasClass('disabled')){
+        console.log('save');
+      }
+
+      $(this).removeClass('disabled');
+
+      $(this).blur();  // prevent from triggering on pressing space
+    });
+
+    $('.btn#delete').on('click', function(){
+      if (!$(this).hasClass('disabled')) {
+        console.log('delete');
+      }
+
+      $(this).removeClass('disabled');
+
+      $(this).blur();
+    });
+
 });

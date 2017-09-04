@@ -24,14 +24,8 @@
       <br>
 
       <div class="row">
-        <div class="col-md-4 text-center">
-          <button class="btn btn-default btn-lg btn-block timer-control" id="start">Start</button>
-        </div>
-        <div class="col-md-4 text-center">
-          <button class="btn btn-default btn-lg btn-block timer-control" id="stop">Stop</button>
-        </div>
-        <div class="col-md-4 text-center">
-          <button class="btn btn-default btn-lg btn-block timer-control" id="reset">Reset</button>
+        <div class="col-md-12 text-center">
+          <button id="main" class="btn btn-primary btn-block btn-lg">Start</button>
         </div>
       </div>
 
@@ -63,8 +57,8 @@
           <div class="panel panel-default">
             <div class="panel-heading">Times</div>
             <div class="panel-body">
-              <button class="btn btn-success disabled" type="submit">Save</button>
-              <button class="btn btn-danger disabled" type="submit">Delete</button>
+              <button id="save" class="btn btn-success disabled" type="submit">Save</button>
+              <button id="delete" class="btn btn-danger disabled" type="submit">Delete</button>
             </div>
             <div class="list-group">
               <button type="button" class="list-group-item">00:23:12</button>
@@ -79,5 +73,6 @@
 {% endblock %}
 
 {% block scripts %}
+    {% csrf_token %}
     <script src="{% static 'timer/scripts.js' %}"></script>
 {% endblock %}

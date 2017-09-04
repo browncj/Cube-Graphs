@@ -25,15 +25,4 @@ class Migration(migrations.Migration):
                 ('image', models.ImageField(null=True, upload_to='')),
             ],
         ),
-        migrations.CreateModel(
-            name='Solve',
-            fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('centiseconds', models.IntegerField()),
-                ('date', models.DateTimeField(default=django.utils.timezone.now)),
-                ('comments', models.TextField(null=True)),
-                ('puzzle', models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, to='timer.Puzzle')),
-                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
-            ],
-        ),
     ]

@@ -10,6 +10,60 @@ var clock = null;
 var count = 0;
 times = [];
 
+$(document).ready(function(){
+  $('#timer-page').addClass('active');
+  setTime(count);
+  ajax_prep();
+
+  $('.btn#main').on('click', function(){
+    if (clock == null) {
+      startTimer();
+      $(this).removeClass('btn-primary');
+      $(this).addClass('btn-success');
+      $(this).text('Done');
+    } else {
+      stopTimer();
+      var solve = new Solve(count);
+      times.push(solve);
+      updateDisplay();
+      console.log(times);
+
+      count = 0;
+      setTime(count);
+      $(this).removeClass('btn-success');
+      $(this).addClass('btn-primary');
+      $(this).text('Start');
+    }
+
+    $(this).blur();
+  });
+
+  $(window).keypress(function(e) {
+    if (e.which === 32){  // space bar
+      e.preventDefault();  // prevent scrolling
+      $('.btn#main').click();
+    }
+  });
+
+  $('.btn#save').on('click', function(){
+    var post_data = {'times': times}
+    $.post('submit/', post_data, function(data) {
+      times = [];
+      updateDisplay();
+      console.log('saved data');
+    });
+
+    $(this).blur();  // prevent from triggering on pressing space
+  });
+
+  $('.btn#delete').on('click', function(){
+    // delete local data
+    times = [];
+    updateDisplay();
+    $(this).blur();
+  });
+});
+
 function ajax_prep() {
   var csrftoken = $('[name=csrfmiddlewaretoken]').val();
 
@@ -31,21 +85,35 @@ function setTime(total_centiseconds){
     var seconds = Math.floor(total_centiseconds / 100) % 60;
     var minutes = Math.floor(total_centiseconds / 6000);
 
-    if (centiseconds < 10){
+    if (centiseconds < 10)
         centiseconds = '0' + centiseconds;
-    }
 
-    if (seconds < 10){
+    if (seconds < 10)
         seconds = '0' + seconds;
-    }
 
-    if (minutes < 10) {
+    if (minutes < 10)
         minutes = '0' + minutes;
-    }
 
     $('#minutes').text(minutes);
     $('#seconds').text(seconds);
     $('#centiseconds').text(centiseconds);
+}
+
+function format_time(total_centiseconds){
+    var centiseconds = total_centiseconds % 100;
+    var seconds = Math.floor(total_centiseconds / 100) % 60;
+    var minutes = Math.floor(total_centiseconds / 6000);
+
+    if (centiseconds < 10)
+        centiseconds = '0' + centiseconds;
+
+    if (seconds < 10)
+        seconds = '0' + seconds;
+
+    if (minutes < 10)
+        minutes = '0' + minutes;
+
+    return minutes + ':' + seconds + ':' + centiseconds;
 }
 
 function startTimer(){
@@ -62,58 +130,12 @@ function stopTimer(){
     clock = null;
 }
 
-$(document).ready(function(){
-    $('#timer-page').addClass('active');
-    setTime(count);
-    ajax_prep();
-
-    $('.btn#main').on('click', function(){
-      if (clock == null) {
-        startTimer();
-        $(this).removeClass('btn-primary');
-        $(this).addClass('btn-success');
-        $(this).text('Done');
-      } else {
-        stopTimer();
-        var solve = new Solve(count);
-        times.push(solve);
-        console.log(times);
-
-        count = 0;
-        setTime(count);
-        $(this).removeClass('btn-success');
-        $(this).addClass('btn-primary');
-        $(this).text('Start');
-      }
-
-      $(this).blur();
-    });
-
-    $(window).keypress(function(e) {
-        if (e.which === 32){  // space bar
-          e.preventDefault();  // prevent scrolling
-          $('.btn#main').click();
-        }
-    });
-
-    $('.btn#save').on('click', function(){
-      if (!$(this).hasClass('disabled')){
-        console.log('save');
-      }
-
-      $(this).removeClass('disabled');
-
-      $(this).blur();  // prevent from triggering on pressing space
-    });
-
-    $('.btn#delete').on('click', function(){
-      if (!$(this).hasClass('disabled')) {
-        console.log('delete');
-      }
-
-      $(this).removeClass('disabled');
-
-      $(this).blur();
-    });
-
-});
+function updateDisplay() {
+  $('#times-list').html('');
+  for (var i = 0; i < times.length; i++){
+    var html = '<button type="button" class="list-group-item">';
+    html += format_time(times[i].centiseconds);
+    html += '</button>';
+    $('#times-list').append(html);
+  }
+}

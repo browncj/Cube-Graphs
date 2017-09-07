@@ -80,26 +80,8 @@ function ajax_prep() {
   });
 }
 
-function setTime(total_centiseconds){
-    var centiseconds = total_centiseconds % 100;
-    var seconds = Math.floor(total_centiseconds / 100) % 60;
-    var minutes = Math.floor(total_centiseconds / 6000);
 
-    if (centiseconds < 10)
-        centiseconds = '0' + centiseconds;
-
-    if (seconds < 10)
-        seconds = '0' + seconds;
-
-    if (minutes < 10)
-        minutes = '0' + minutes;
-
-    $('#minutes').text(minutes);
-    $('#seconds').text(seconds);
-    $('#centiseconds').text(centiseconds);
-}
-
-function format_time(total_centiseconds){
+function formatTime(total_centiseconds){
     var centiseconds = total_centiseconds % 100;
     var seconds = Math.floor(total_centiseconds / 100) % 60;
     var minutes = Math.floor(total_centiseconds / 6000);
@@ -114,6 +96,10 @@ function format_time(total_centiseconds){
         minutes = '0' + minutes;
 
     return minutes + ':' + seconds + ':' + centiseconds;
+}
+
+function setTime(total_centiseconds){
+  $('#time').text(formatTime(total_centiseconds));
 }
 
 function startTimer(){
@@ -134,7 +120,7 @@ function updateDisplay() {
   $('#times-list').html('');
   for (var i = 0; i < times.length; i++){
     var html = '<button type="button" class="list-group-item">';
-    html += format_time(times[i].centiseconds);
+    html += formatTime(times[i].centiseconds);
     html += '</button>';
     $('#times-list').append(html);
   }

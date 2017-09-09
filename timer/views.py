@@ -29,6 +29,7 @@ def submit(request):
             posix_time = time['date'] // 1000  # fractional seconds by default
             entry = Solve(centiseconds=time['centiseconds'],
                             date=datetime.utcfromtimestamp(posix_time),
+                            scramble=time['scramble'],
                             user=request.user)
             entry.save()
         return HttpResponse(status=204)

@@ -1,8 +1,9 @@
 class Solve {
-  constructor(centiseconds){
+  constructor(centiseconds, scramble){
     var d = new Date();
     this.date = d.getTime(); // unix timestamp
     this.centiseconds = centiseconds;
+    this.scramble = scramble;
   }
 }
 
@@ -22,8 +23,9 @@ $(document).ready(function(){
       $(this).addClass('btn-success');
       $(this).text('Done');
     } else {
+      var scramble = $('p.scramble').text().trim();
       stopTimer();
-      var solve = new Solve(count);
+      var solve = new Solve(count, scramble);
       times.push(solve);
       updateDisplay();
       console.log(times);
@@ -46,11 +48,12 @@ $(document).ready(function(){
   });
 
   $('.btn#save').on('click', function(){
-    var post_data = JSON.stringify({'times': times})
+    var post_data = {'times': times};
+    var post_data_string = JSON.stringify(post_data);
     $.ajax({
       type: "POST",
       url: 'submit/',
-      data: post_data,
+      data: post_data_string,
       statusCode: {
         204: function(response) {
           times = [];

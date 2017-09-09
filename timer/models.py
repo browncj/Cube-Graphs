@@ -20,6 +20,7 @@ class Solve(models.Model):
     centiseconds = models.IntegerField()
     date = UnixDateTimeField()
     comments = models.TextField(null=True)
+    scramble = models.TextField(null=True)
     puzzle = models.ForeignKey(
         Puzzle,
         on_delete=models.CASCADE,

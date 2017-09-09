@@ -1,14 +1,14 @@
 from django.shortcuts import render, redirect
 from django.core.validators import validate_email
+from django.contrib.auth.decorators import login_required
 
 
+@login_required(login_url='/login')
 def index(request):
-    if not request.user.is_authenticated():
-        return redirect('/login')
-
     return render(request, 'userProfile/userProfile.html', {})
 
 
+@login_required(login_url='/login')
 def update_mail(request):
     if request.method == 'POST':
         validate_email(request.POST['email'])

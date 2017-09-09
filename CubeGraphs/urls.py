@@ -27,6 +27,7 @@ urlpatterns = [
     url(r'^timer/', include('timer.urls')),
     url(r'^home/', include('home.urls')),
     url(r'^community/', include('community.urls')),
+    url(r'^track/', include('track.urls')),
 
     url(r'^login/', auth_views.login, name='login'),
     url(r'^logout/', auth_views.logout, {'next_page': '/'}, name='logout'),

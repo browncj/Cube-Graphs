@@ -4,6 +4,8 @@ from django.db import models
 from django.utils import timezone
 from django.conf import settings
 
+from django_unixdatetimefield import UnixDateTimeField
+
 
 class Puzzle(models.Model):
     name = models.TextField(unique=True)
@@ -16,7 +18,7 @@ class Puzzle(models.Model):
 class Solve(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     centiseconds = models.IntegerField()
-    date = models.DateTimeField(default=timezone.now)
+    date = UnixDateTimeField()
     comments = models.TextField(null=True)
     puzzle = models.ForeignKey(
         Puzzle,

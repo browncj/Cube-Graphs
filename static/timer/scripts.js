@@ -46,11 +46,20 @@ $(document).ready(function(){
   });
 
   $('.btn#save').on('click', function(){
-    var post_data = {'times': times}
-    $.post('submit/', post_data, function(data) {
-      times = [];
-      updateDisplay();
-      console.log('saved data');
+    var post_data = JSON.stringify({'times': times})
+    $.ajax({
+      type: "POST",
+      url: 'submit/',
+      data: post_data,
+      statusCode: {
+        204: function(response) {
+          times = [];
+          updateDisplay();
+        },
+        404: function(response) {
+          $('#login_modal').modal('show');
+        },
+      },
     });
 
     $(this).blur();  // prevent from triggering on pressing space

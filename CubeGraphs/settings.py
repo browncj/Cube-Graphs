@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'about.apps.AboutConfig',
     'timer.apps.TimerConfig',
     'django_tables2',
+    'graphos',
 ]
 
 MIDDLEWARE_CLASSES = [

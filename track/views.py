@@ -1,5 +1,9 @@
 import statistics
 
+from graphos.sources.simple import SimpleDataSource
+from graphos.sources.model import ModelDataSource
+from graphos.renderers import gchart
+
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django_tables2 import RequestConfig
@@ -45,4 +49,26 @@ def tables(request):
 
 @login_required(login_url='/login')
 def charts(request):
-    return render(request, 'track/charts.html', {})
+
+    # qset = Solve.objects.all()
+    # data_source = ModelDataSource(qset, fields=['date', 'centiseconds'])
+    # chart = gchart.LineChart(
+    #     data_source,
+    #     html_id='chart_div',
+    #     height=600,
+    #     width=1100,
+    #     options={'title': 'Solving speed over time'},
+    # )
+
+    data = [
+       ['Date', 'Solve time (seconds)']
+    ]
+    qset = Solve.objects.all()
+    for q in qset:
+        data.append([q.date, q.centiseconds / 100])
+    data_source = SimpleDataSource(data=data)
+    chart = gchart.LineChart(data_source,
+                            height=600,
+                            width=1100,
+                            options={'title': 'Solving speed over time'})
+    return render(request, 'track/charts.html', {'chart': chart})

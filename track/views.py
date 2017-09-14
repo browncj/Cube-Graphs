@@ -2,10 +2,10 @@ import statistics
 
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
+from django_tables2 import RequestConfig
 
 from timer.models import Solve
-
-
+from .tables import SolveTable
 from .apps import truncate_number
 
 
@@ -38,7 +38,9 @@ def stats(request):
 
 @login_required(login_url='/login')
 def tables(request):
-    return render(request, 'track/tables.html', {})
+    table = SolveTable(Solve.objects.all())
+    RequestConfig(request).configure(table)
+    return render(request, 'track/tables.html', {'table': table})
 
 
 @login_required(login_url='/login')

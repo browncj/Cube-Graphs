@@ -29,3 +29,4 @@ class SolveTable(tables.Table):
         row_attrs = {
             'data-id': lambda record: record.id
         }
+        attrs = {'class': 'paleblue'}

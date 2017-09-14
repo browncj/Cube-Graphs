@@ -19,10 +19,11 @@ def index(request):
 def submit(request):
     if request.is_ajax():
         try:
-            json_data = json.loads(request.body)
+            print('before')
+            json_data = json.loads(request.body.decode('ASCII'))
             times = json_data['times']
         except Exception:
-            HttpResponseServerError('Malformed data!')
+            return HttpResponseServerError('Malformed data!')
 
 
         for time in times:

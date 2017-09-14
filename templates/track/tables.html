@@ -7,11 +7,17 @@
   <link rel="stylesheet" href="{% static 'track/tables.css' %}" />
 {% endblock %}
 
+
 {% block content %}
     <div class="page-header">
         <h1>Table view</h1>
     </div>
-    {% render_table table %}
+
+    {% if empty %}
+      <p>You have not completed any solves!</p>
+    {% else %}
+      {% render_table table %}
+    {% endif %}
 {% endblock %}
 
 {% block scripts %}

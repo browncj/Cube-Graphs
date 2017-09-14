@@ -30,27 +30,36 @@ def stats(request):
     context['num_solves'] = num_solves
 
     times = sorted([solve.centiseconds / 100 for solve in solves])
-    # dates = sorted([x.date for x in solves])
     context['mean'] = truncate_number(statistics.mean(times))
     context['median'] = truncate_number(statistics.median(times))
-    context['stdev'] = truncate_number(statistics.stdev(times))
     context['low'] = truncate_number(times[0])
     context['high'] = truncate_number(times[len(times)-1])
+    if num_solves > 1:
+        context['stdev'] = truncate_number(statistics.stdev(times))
+    else:
+        context['stdev'] = 'N/a'
 
     return render(request, 'track/stats.html', context)
 
 
 @login_required(login_url='/login')
 def tables(request):
-    table = SolveTable(Solve.objects.all(), order_by='-date')
+    context = {'empty': True}
+    qset = Solve.objects.filter(user=request.user)
+
+    if len(qset) > 0:
+        context['empty'] = False
+
+    table = SolveTable(qset, order_by='-date')
     RequestConfig(request).configure(table)
-    return render(request, 'track/tables.html', {'table': table})
+    context['table'] = table
+    return render(request, 'track/tables.html', context)
 
 
 @login_required(login_url='/login')
 def charts(request):
-
-    # qset = Solve.objects.all()
+    context = {'empty': True}
+    # qset = Solve.objects.all(user=request.user)
     # data_source = ModelDataSource(qset, fields=['date', 'centiseconds'])
     # chart = gchart.LineChart(
     #     data_source,
@@ -63,7 +72,11 @@ def charts(request):
     data = [
        ['Date', 'Solve time (seconds)']
     ]
-    qset = Solve.objects.all()
+    qset = Solve.objects.filter(user=request.user)
+
+    if len(qset) > 0:
+        context['empty'] = False
+
     for q in qset:
         data.append([q.date, q.centiseconds / 100])
     data_source = SimpleDataSource(data=data)
@@ -71,4 +84,5 @@ def charts(request):
                             height=600,
                             width=1100,
                             options={'title': 'Solving speed over time'})
-    return render(request, 'track/charts.html', {'chart': chart})
+    context['chart'] = chart
+    return render(request, 'track/charts.html', context)

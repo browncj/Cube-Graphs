@@ -7,9 +7,9 @@ from timer.models import Solve
 class SolveTable(tables.Table):
     date = tables.Column()
     scramble = tables.Column()
-    time = tables.Column(verbose_name='Time (seconds)', empty_values=())
+    centiseconds = tables.Column(verbose_name='Time (seconds)', empty_values=())
 
-    def render_time(self, record):
+    def render_centiseconds(self, record):
         secs = str(record.centiseconds / 100)
         sec_split = secs.split('.')
         part_one = sec_split[0]
@@ -25,7 +25,7 @@ class SolveTable(tables.Table):
     class Meta:
         model = Solve
         sequence = ('date', 'scramble', 'centiseconds')
-        exclude = ('comments', 'puzzle', 'user', 'id', 'centiseconds')
+        exclude = ('comments', 'puzzle', 'user', 'id')
         row_attrs = {
             'data-id': lambda record: record.id
         }

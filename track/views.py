@@ -38,7 +38,7 @@ def stats(request):
 
 @login_required(login_url='/login')
 def tables(request):
-    table = SolveTable(Solve.objects.all())
+    table = SolveTable(Solve.objects.all(), order_by='-date')
     RequestConfig(request).configure(table)
     return render(request, 'track/tables.html', {'table': table})
 

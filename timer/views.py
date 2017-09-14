@@ -2,16 +2,19 @@ import json
 
 from datetime import datetime
 
-from django.views.decorators.http import require_POST
+from django.views.decorators.http import require_POST, require_safe
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, HttpResponse
 from django.http import JsonResponse, HttpResponseServerError, HttpResponseForbidden
 
 from timer.models import Solve
 
+from .scramble import scramble
+
 
 def index(request):
-    return render(request, 'timer/timer.html', {})
+    context = {'scramble': scramble()}
+    return render(request, 'timer/timer.html', context)
 
 
 @require_POST
@@ -34,3 +37,8 @@ def submit(request):
                             user=request.user)
             entry.save()
         return HttpResponse(status=204)
+
+
+@require_safe
+def get_scramble(request):
+    return HttpResponse(scramble())

@@ -34,7 +34,7 @@
           {# default time prevents page from jumping #}
           <p id="stopwatch"><span id="time">00:00:00</span></p>
           <p class="scramble text-center">
-            U D L D U D D D' U D L D U D D D' U D L D U D D D'
+            {{ scramble }}
           </p>
         </div>
       </div>
@@ -66,6 +66,10 @@
               <p>
                 Don't get discouraged if you don't start with the times you want!
                 Everyone had to start somewhere :)
+              </p>
+              <p>
+                Scrambles are automatically generated after each solve.
+                Currently, only the standard 3x3 Rubik's cube is supported.
               </p>
             </div>
           </div>

@@ -28,7 +28,11 @@ $(document).ready(function(){
       var solve = new Solve(count, scramble);
       times.push(solve);
       updateDisplay();
-      console.log(times);
+
+      // update scramble
+      $.get( 'scramble/', function(data) {
+        $('.scramble').text(data);
+      });
 
       count = 0;
       setTime(count);

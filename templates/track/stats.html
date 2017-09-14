@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="page-header">
+        <h1>User statistics</h1>
+    </div>
+
+    {% if empty %}
+      <p><b>You have not completed any solves!!</b></p>
+      <p style="font-size: 8pt;">(Get to work!)</p>
+    {% else %}
+      <p>You have completed <b>{{ num_solves }}</b> solves.</p>
+      <p>Mean solve time is {{ mean }} seconds.</p>
+      <p>Median solve time is {{ median }} seconds.</p>
+      <p>Standard deviation is {{ stdev }} seconds.</p>
+      <br>
+      <p>Your fastest solve took {{ low }} seconds!</p>
+      <p>Your slowest took {{ high }} seconds.</p>
+    {% endif %}
+
+
+{% endblock %}
+
+{% block scripts %}
+  <script src="{% static 'track/scripts.js' %}"></script>
+  <script src="{% static 'track/stats.js' %}"></script>
+{% endblock %}

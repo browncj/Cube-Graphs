@@ -1,0 +1,15 @@
+th > a {
+  font-size: 1.6rem;
+}
+
+tbody {
+  font-size: 1.5rem;
+}
+
+ul.pagination > li {
+  font-size: 1.3rem;
+}
+
+tr {
+  height: 27px;
+}

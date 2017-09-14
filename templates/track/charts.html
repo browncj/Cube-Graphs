@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="page-header">
+        <h1>Charts</h1>
+    </div>
+
+    <!-- Google charts -->
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript">google.load("visualization", "1", {packages:["corechart"]});</script>
+
+    {{ chart.as_html }}
+{% endblock %}
+
+{% block scripts %}
+  <script src="{% static 'track/scripts.js' %}"></script>
+  <script src="{% static 'track/charts.js' %}"></script>
+{% endblock %}

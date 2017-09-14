@@ -1,5 +1,8 @@
 import statistics
 
+from graphos.sources.model import ModelDataSource
+from graphos.renderers.gchart import LineChart
+
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django_tables2 import RequestConfig
@@ -45,4 +48,7 @@ def tables(request):
 
 @login_required(login_url='/login')
 def charts(request):
-    return render(request, 'track/charts.html', {})
+    qset = Solve.objects.all()
+    data_source = ModelDataSource(qset, fields=['date', 'centiseconds'])
+    chart = LineChart(data_source, html_id='chart_div', height=600, width=1100)
+    return render(request, 'track/charts.html', {'chart': chart})

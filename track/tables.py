@@ -1,6 +1,7 @@
 from math import modf
 
 import django_tables2 as tables
+from django_tables2.utils import A
 
 from timer.models import Solve
 
@@ -8,6 +9,10 @@ class SolveTable(tables.Table):
     date = tables.Column()
     scramble = tables.Column()
     centiseconds = tables.Column(verbose_name='Time (seconds)', empty_values=())
+    remove = tables.LinkColumn(r'Solve-Remove',
+                                text='Remove',
+                                verbose_name='Remove',
+                                args=[A('id')])
 
     def render_centiseconds(self, record):
         secs = str(record.centiseconds / 100)

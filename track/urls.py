@@ -7,4 +7,5 @@ urlpatterns = [
     url(r'^stats/', views.stats, name='Statistics'),
     url(r'^tables/', views.tables, name='Tables'),
     url(r'^charts/', views.charts, name='Charts'),
+    url(r'solve-remove/([a-zA-Z0-9_-]+)?$', views.remove_solve, name='Solve-Remove'),
 ]

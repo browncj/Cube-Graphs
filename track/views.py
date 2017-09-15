@@ -57,6 +57,17 @@ def tables(request):
 
 
 @login_required(login_url='/login')
+def remove_solve(request, uuid):
+    if uuid is None:
+        return redirect('/track/tables')
+
+    entry = Solve.objects.get(id=uuid)
+    if entry.user == request.user:
+        entry.delete()
+    return redirect('/track/tables')
+
+
+@login_required(login_url='/login')
 def charts(request):
     context = {'empty': True}
     # qset = Solve.objects.all(user=request.user)

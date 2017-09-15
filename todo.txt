@@ -1,0 +1,6 @@
+-add functional tests
+-add unit tests
+-deploy on newer version of Ubuntu to take advantage of Python 3.6?
+
+
+-advertise?

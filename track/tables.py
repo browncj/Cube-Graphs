@@ -11,8 +11,9 @@ class SolveTable(tables.Table):
     centiseconds = tables.Column(verbose_name='Time (seconds)', empty_values=())
     remove = tables.LinkColumn(r'Solve-Remove',
                                 text='Remove',
-                                verbose_name='Remove',
-                                args=[A('id')])
+                                verbose_name='',
+                                args=[A('id')],
+                                orderable=False)
 
     def render_centiseconds(self, record):
         secs = str(record.centiseconds / 100)

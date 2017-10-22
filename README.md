@@ -9,3 +9,5 @@ Includes the following features:
 * Account creation and management features
 
 Installation requires Python 3. Install the packages in requirements.txt. In addition, a Postgresql server needs to be set up as is specified in settings.py.
+
+[Blog post](http://browncj.io/blog/2017/10/22/cube.html)

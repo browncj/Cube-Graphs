@@ -138,8 +138,30 @@ function updateDisplay() {
   $('#times-list').html('');
 
   var max = times.length <= 4 ? times.length : 4;
+  var highlight;
+
+  // each time keeps same level of highlighting as it descends the list
+  if (times.length % 3 == 0)
+    highlight = 0;
+  else if (times.length % 3 == 1)
+    highlight = 1;
+  else
+    highlight = 2;
+
   for (var i = 0; i < max; i++){
-    var html = '<button type="button" class="list-group-item">';
+    var html = '<button type="button" class="list-group-item highlight">';
+
+    // cycle through highlight intensities
+    var html;
+    if (highlight == 0)
+      html = '<button type="button" class="list-group-item">';
+    else if (highlight == 1)
+      html = '<button type="button" class="list-group-item highlight1">';
+    else
+      html = '<button type="button" class="list-group-item highlight2">';
+    
+    highlight = highlight > 0 ? highlight - 1 : 2;
+
     html += formatTime(times[times.length-i-1].centiseconds);
     html += '</button>';
     $('#times-list').append(html);

@@ -13,6 +13,7 @@ times = [];
 
 $(document).ready(function(){
   $('#timer-page').addClass('active');
+  updateDisplay();
   setTime(count);
   ajax_prep();
 
@@ -133,10 +134,13 @@ function stopTimer(){
 }
 
 function updateDisplay() {
+  $('#pending').html(times.length);
   $('#times-list').html('');
-  for (var i = 0; i < times.length; i++){
+
+  var max = times.length <= 4 ? times.length : 4;
+  for (var i = 0; i < max; i++){
     var html = '<button type="button" class="list-group-item">';
-    html += formatTime(times[i].centiseconds);
+    html += formatTime(times[times.length-i-1].centiseconds);
     html += '</button>';
     $('#times-list').append(html);
   }
